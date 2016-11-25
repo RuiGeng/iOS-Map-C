@@ -14,6 +14,7 @@
 		B3ABE12E1DE7CD9E00239795 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3ABE12D1DE7CD9E00239795 /* Assets.xcassets */; };
 		B3ABE1311DE7CD9E00239795 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3ABE12F1DE7CD9E00239795 /* LaunchScreen.storyboard */; };
 		B3ABE13A1DE7CECE00239795 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3ABE1391DE7CECE00239795 /* MapKit.framework */; };
+		B3ABE13D1DE7DA1B00239795 /* PinAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ABE13C1DE7DA1B00239795 /* PinAnnotation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,8 @@
 		B3ABE1301DE7CD9E00239795 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B3ABE1321DE7CD9E00239795 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3ABE1391DE7CECE00239795 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		B3ABE13B1DE7DA1B00239795 /* PinAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinAnnotation.h; sourceTree = "<group>"; };
+		B3ABE13C1DE7DA1B00239795 /* PinAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinAnnotation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +74,8 @@
 				B3ABE12F1DE7CD9E00239795 /* LaunchScreen.storyboard */,
 				B3ABE1321DE7CD9E00239795 /* Info.plist */,
 				B3ABE1211DE7CD9E00239795 /* Supporting Files */,
+				B3ABE13B1DE7DA1B00239795 /* PinAnnotation.h */,
+				B3ABE13C1DE7DA1B00239795 /* PinAnnotation.m */,
 			);
 			path = "Map-C";
 			sourceTree = "<group>";
@@ -167,6 +172,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3ABE13D1DE7DA1B00239795 /* PinAnnotation.m in Sources */,
 				B3ABE1291DE7CD9E00239795 /* ViewController.m in Sources */,
 				B3ABE1261DE7CD9E00239795 /* AppDelegate.m in Sources */,
 				B3ABE1231DE7CD9E00239795 /* main.m in Sources */,

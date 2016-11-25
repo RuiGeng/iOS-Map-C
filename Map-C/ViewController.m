@@ -80,11 +80,11 @@
     
     /*
      //geographical coordinate structure
-    CLLocationCoordinate2D loc = [userLocation coordinate];
-    
-    NSString longitude = [NSString stringWithFormat:@"%f",loc.longitude];
-    
-    NSString latitude = [NSString stringWithFormat:@"%f",loc.latitude];
+     CLLocationCoordinate2D loc = [userLocation coordinate];
+     
+     NSString longitude = [NSString stringWithFormat:@"%f",loc.longitude];
+     
+     NSString latitude = [NSString stringWithFormat:@"%f",loc.latitude];
      */
     
 }
@@ -108,11 +108,11 @@
 - (IBAction)minMapView:(id)sender {
     
     CGFloat latitudeDelta = self.mapView.region.span.latitudeDelta * 2;
-
+    
     CGFloat longitudeDelta = self.mapView.region.span.longitudeDelta * 2;
-
+    
     MKCoordinateSpan span = MKCoordinateSpanMake(latitudeDelta, longitudeDelta);
-
+    
     MKCoordinateRegion region = MKCoordinateRegionMake(self.mapView.centerCoordinate, span);
     
     [self.mapView setRegion:region animated:YES];
@@ -121,14 +121,80 @@
 - (IBAction)maxMapView:(id)sender {
     
     CGFloat latitudeDelta = self.mapView.region.span.latitudeDelta * 0.5;
-
+    
     CGFloat longitudeDelta = self.mapView.region.span.longitudeDelta * 0.5;
-
+    
     MKCoordinateSpan span = MKCoordinateSpanMake(latitudeDelta, longitudeDelta);
-
+    
     MKCoordinateRegion region = MKCoordinateRegionMake(self.mapView.centerCoordinate, span);
     
     [self.mapView setRegion:region animated:YES];
+    
+}
+
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    //Get Current Location
+    CGPoint point=[[touches anyObject]locationInView:self.mapView];
+    
+    //Change Location to coordinates
+    CLLocationCoordinate2D coordinate=[self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+    
+    //set Pin
+    PinAnnotation *annotation=[[PinAnnotation alloc]init];
+    annotation.coordinate=coordinate;
+    
+    //reverse coordinates
+    CLGeocoder *geocoder=[[CLGeocoder alloc]init];
+    CLLocation *location=[[CLLocation alloc]initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        if (error==nil && placemarks.count==0) {
+            NSLog(@"Error:%@",error);
+            return ;
+        }
+        //get place mark
+        CLPlacemark *placemark=[placemarks firstObject];
+        //Set title
+        annotation.title=placemark.locality;
+        //Set subtitle
+        annotation.subtitle=placemark.name;
+        
+        //add pin
+        [self.mapView addAnnotation:annotation];
+    }];
+    
+}
+
+//Returns the view associated with the specified annotation object.
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+
+{
+    if ([annotation isKindOfClass:[MKUserLocation class]]){
+        return nil;
+    }
+    
+    MKAnnotationView *annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"loc"];
+    
+    annotationView.canShowCallout = YES;
+    
+    annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    
+    //Set tag for a button
+    annotationView.rightCalloutAccessoryView.tag = 1;
+    
+    return annotationView;
+    
+}
+
+
+//Tells the delegate that the user tapped one of the annotation view’s accessory buttons.
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    if ([control tag] == 1) {
+        UIApplication *application = [UIApplication sharedApplication];
+        [application openURL:[NSURL URLWithString:@"https://www.cnn.com"] options:@{} completionHandler:nil];
+    }
     
 }
 
